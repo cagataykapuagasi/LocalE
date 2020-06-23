@@ -3,7 +3,37 @@ import gql from 'graphql-tag';
 const getOrders = ({ limit = 10, index = 0 }) =>
   gql`
     query {
-      pastOrders(limit: ${limit}, index: ${index}) {
+      pastOrders(limit: 10, index: 0) {
+        deliveryTime: deliveryTime
+        restaurant: restaurant {
+          address {
+            addressLine1
+            addressLine2
+            city {
+              id
+              name
+              slugName
+              timezone
+            }
+            country {
+              id
+              isoCode
+              name
+              slugName
+            }
+            flatNumber
+            geoEnabled
+            id
+            lat
+            lon
+            postalCode
+            slugAdminWard
+          }
+          contactMobileNumber
+          deliveryType
+          name
+          uid
+        }
         status: status
         address: address {
           addressLine1
