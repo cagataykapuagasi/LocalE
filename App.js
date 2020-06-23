@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { StyleSheet } from 'react-native';
-import { Scene, Modal, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions, Tabs } from 'react-native-router-flux';
 import { Provider } from 'mobx-react';
-import { Home } from './src/screens';
+import { Home, Login, Profile } from './src/screens';
 import { colors } from 'res';
 import RNBootSplash from 'react-native-bootsplash';
 import { store } from './src/store';
@@ -12,18 +12,19 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
 import AsyncStorage from '@react-native-community/async-storage';
+import { TabIcon } from '~/components/navigations';
 
 const httpLink = new HttpLink({
   uri: 'http://209.250.226.42:8083/graphql',
 });
 
 const authMiddleware = new ApolloLink((operation, forward) => {
-  AsyncStorage.getItem('token').then(token => {
-    operation.setContext({
-      headers: {
-        Authorization: token && `Bearer ${token}`,
-      },
-    });
+  const { authToken } = store.user;
+
+  operation.setContext({
+    headers: {
+      Authorization: authToken && `Bearer ${authToken}`,
+    },
   });
 
   return forward(operation);
@@ -39,7 +40,7 @@ const App = () => {
     store
       .init()
       .then(() => {
-        //
+        Actions.replace('home');
       })
       .catch(() => {
         //
@@ -56,7 +57,28 @@ const App = () => {
           tintColor={colors.headerTint}
           headerTintColor={colors.headerTint}>
           <Scene>
-            <Scene hideNavBar component={Home} initial key="home" />
+            <Scene hideNavBar component={Login} initial key="login" />
+
+            <Scene
+              tabBarStyle={styles.tab}
+              showLabel={false}
+              hideNavBar
+              icon={TabIcon}
+              tabs
+              key="home">
+              <Scene
+                iconName="home"
+                hideNavBar
+                component={Home}
+                key="_home"
+              />
+              <Scene
+                iconName="cog"
+                hideNavBar
+                component={Profile}
+                key="profile"
+              />
+            </Scene>
           </Scene>
         </Router>
       </Provider>
@@ -71,6 +93,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   tab: {
-    backgroundColor: colors.lightGray,
+    backgroundColor: 'white',
+    borderTopWidth: 0,
   },
 });
