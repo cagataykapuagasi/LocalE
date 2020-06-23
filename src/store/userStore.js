@@ -1,23 +1,20 @@
 import { observable, action } from 'mobx';
+import AsyncStorage from '@react-native-community/async-storage';
+import { Actions } from 'react-native-router-flux';
 
 class UserStore {
   @observable authToken = null;
-  @observable user = null;
 
   @action
-  setUser = user => {
-    this.user = user;
-  };
-
-  @action
-  setAuthToken = session => {
-    this.authToken = session;
+  login = async token => {
+    await AsyncStorage.setItem('token', token);
+    this.authToken = token;
+    Actions.replace('home');
   };
 
   @action
   reset = () => {
     this.authToken = null;
-    this.user = null;
   };
 }
 

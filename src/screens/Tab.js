@@ -2,12 +2,10 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Dimensions,
-  Linking,
   Text,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
-import { colors, fonts } from 'res';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment';
@@ -15,7 +13,7 @@ import moment from 'moment';
 let limit = 15,
   index = 0;
 
-const { width, height } = Dimensions.get('window');
+const { height } = Dimensions.get('window');
 
 const ListEmptyComponent = () => (
   <View style={styles.empty}>
@@ -77,16 +75,12 @@ const Tab = ({ query, tag }) => {
   };
 
   const fetch = () => {
-    console.warn('tetik');
-
     setPagination(true);
     fetchMore({
       variables: {
         offset: response.data[tag].length,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        console.log('fetch more', fetchMoreResult);
-        console.log('prev', prev);
         setPagination(false);
         if (!fetchMoreResult) return prev;
         return Object.assign({}, prev, {
