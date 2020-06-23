@@ -10,21 +10,12 @@ import {
 import { colors, fonts } from 'res';
 import { ScaledSheet } from 'react-native-size-matters';
 import { useQuery } from '@apollo/react-hooks';
+import moment from 'moment';
 
-let limit = 25,
+let limit = 15,
   index = 0;
 
 const { width, height } = Dimensions.get('window');
-
-const renderItem = ({
-  item: { description, subject, update_at, id, read },
-}) => {
-  return (
-    <View style={styles.box}>
-      <Text>da</Text>
-    </View>
-  );
-};
 
 const ListEmptyComponent = () => (
   <View style={styles.empty}>
@@ -41,6 +32,42 @@ const Tab = ({ query, tag }) => {
   const { loading, fetchMore, refetch, ...response } = useQuery(
     query({ limit, index })
   );
+
+  const renderItem = ({
+    item: { distance, open, name, orderDate, restaurant, status },
+  }) => {
+    return tag === 'pastOrders' ? (
+      <View style={styles.box}>
+        <Text style={styles.boxNameText}>{restaurant.name}</Text>
+        <Text style={styles.boxLeftText}>
+          {moment(orderDate).format('DD.MM.YYYY')}
+        </Text>
+        <Text
+          style={[
+            styles.boxRightText,
+            {
+              color: status === 'ORDER_COMPLETED' ? 'green' : 'red',
+            },
+          ]}>
+          {status === 'ORDER_COMPLETED' ? 'Completed' : 'Timeout'}
+        </Text>
+      </View>
+    ) : (
+      <View style={styles.box}>
+        <Text style={styles.boxNameText}>{name}</Text>
+        <Text style={styles.boxLeftText}>{distance} m</Text>
+        <Text
+          style={[
+            styles.boxRightText,
+            {
+              color: open ? 'green' : 'red',
+            },
+          ]}>
+          {open ? 'Open' : 'Closed'}
+        </Text>
+      </View>
+    );
+  };
 
   const onRefresh = () => {
     setRefresing(true);
@@ -101,8 +128,25 @@ const styles = ScaledSheet.create({
     flex: 1,
   },
   box: {
-    height: height * 0.1,
-    width: '100%',
-    borderWidth: 1,
+    height: height * 0.2,
+    width: '90%',
+    borderWidth: 0.5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: '10@vs',
+    borderTopRightRadius: 50,
+  },
+  boxNameText: {
+    fontSize: 20,
+  },
+  boxLeftText: {
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
+  },
+  boxRightText: {
+    bottom: 0,
+    right: 0,
+    position: 'absolute',
   },
 });
