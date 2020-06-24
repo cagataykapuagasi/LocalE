@@ -11,7 +11,6 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { ApolloLink, concat } from 'apollo-link';
-import AsyncStorage from '@react-native-community/async-storage';
 import { TabIcon } from '~/components/navigations';
 
 const httpLink = new HttpLink({
