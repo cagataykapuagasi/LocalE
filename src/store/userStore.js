@@ -13,8 +13,10 @@ class UserStore {
   };
 
   @action
-  reset = () => {
+  logout = async () => {
+    await AsyncStorage.removeItem('token');
     this.authToken = null;
+    Actions.replace('login');
   };
 }
 

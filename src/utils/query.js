@@ -135,4 +135,41 @@ const getRestaurants = ({ limit = 10, index = 0 }) =>
     }
   `;
 
-export { getOrders, getRestaurants };
+const getUser = gql`
+  query {
+    user {
+      uid: uid
+      addresses {
+        addressIconId
+        addressLine1
+        addressLine2
+        adminWard
+        city {
+          id
+          name
+          slugName
+          timezone
+        }
+        country {
+          id
+          isoCode
+          name
+          slugName
+        }
+        default
+        flatNumber
+        fullName
+        geoEnabled
+        id
+        lat
+        lon
+        postalCode
+        slugAdminWard
+        tips
+        title
+      }
+    }
+  }
+`;
+
+export { getOrders, getRestaurants, getUser };

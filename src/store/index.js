@@ -7,8 +7,10 @@ export class RootStore {
   user = user;
 
   @action init = () => {
-    return new Promise((resolve, reject) => {
-      if (user.user) {
+    return new Promise(async (resolve, reject) => {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        this.user.authToken = token;
         resolve();
       } else {
         reject();

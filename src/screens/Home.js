@@ -1,17 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Text,
-  Dimensions,
-  ScrollView,
-  SafeAreaView,
-} from 'react-native';
-import { images, fonts, colors } from 'res';
+import React, { useState } from 'react';
+import { Dimensions, SafeAreaView } from 'react-native';
+import { colors } from 'res';
 import { ScaledSheet } from 'react-native-size-matters';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { useMutation, useQuery } from '@apollo/react-hooks';
 import { inject, observer } from 'mobx-react';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { getOrders, getRestaurants } from '~/utils/query';
@@ -30,10 +20,6 @@ const renderTabBar = props => (
     inactiveColor={colors.lightGray}
   />
 );
-
-getDatas = ({ limit = 10, index = 0 }) => {};
-
-//{ loading, error, data }
 
 const Home = props => {
   const [index, setIndex] = useState(0);

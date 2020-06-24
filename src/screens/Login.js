@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import { images, fonts, colors } from 'res';
+import { colors } from 'res';
 import { ScaledSheet } from 'react-native-size-matters';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { inject, observer } from 'mobx-react';
 
 const Login = ({ store }) => {
-  const [email, setEmail] = useState('oliverjones@gmail.com');
-  const [password, setPassword] = useState('123456');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const [getToken, data] = useMutation(gql`
   mutation {
     loginWithEmail(email: "${email}", password: "${password}") {
@@ -24,8 +23,6 @@ const Login = ({ store }) => {
     }
   }
 `);
-
-  useEffect(() => {}, []);
 
   const login = () => {
     getToken()
@@ -36,8 +33,6 @@ const Login = ({ store }) => {
         Alert.alert('Hata', 'Giriş bilgilerinizi kontrol edin.')
       );
   };
-
-  console.log('data', data);
 
   return (
     <View style={styles.container}>

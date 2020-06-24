@@ -29,6 +29,7 @@
     "mobx": "^5.15.2",
     "mobx-react": "^6.1.5",
     "mobx-sync": "^2.1.2",
+    "moment": "^2.27.0",
     "prop-types": "^15.7.2",
     "react": "16.11.0",
     "react-apollo": "^3.1.5",
@@ -36,12 +37,13 @@
     "react-native-bootsplash": "^1.2.1",
     "react-native-exit-app": "^1.1.0",
     "react-native-geolocation-service": "^3.1.0",
-    "react-native-gesture-handler": "^1.5.3",
+    "react-native-gesture-handler": "^1.6.1",
     "react-native-localize": "^1.3.2",
     "react-native-permissions": "^2.0.9",
-    "react-native-reanimated": "^1.7.0",
+    "react-native-reanimated": "^1.9.0",
     "react-native-router-flux": "^4.2.0",
     "react-native-size-matters": "^0.2.1",
+    "react-native-tab-view": "^2.14.4",
     "react-native-vector-icons": "^6.6.0"
   },
   "devDependencies": {
