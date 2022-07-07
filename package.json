@@ -29,7 +29,7 @@
     "mobx": "^5.15.2",
     "mobx-react": "^6.1.5",
     "mobx-sync": "^2.1.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "prop-types": "^15.7.2",
     "react": "16.11.0",
     "react-apollo": "^3.1.5",
